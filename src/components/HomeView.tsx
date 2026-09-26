@@ -20,14 +20,20 @@ import { NavTab } from './Navbar';
 
 interface HomeViewProps {
   onNavigate: (tab: NavTab) => void;
+  tourStep?: number;
 }
 
-export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
+export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, tourStep }) => {
   return (
     <div className="space-y-16 py-8 sm:py-12 animate-in fade-in duration-200">
       {/* 1. HERO BÖLÜMÜ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white border border-[#DDE1DA] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-subtle">
+        <div
+          id="tour-step-1-hero"
+          className={`bg-white border border-[#DDE1DA] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-subtle transition-all duration-300 ${
+            tourStep === 1 ? 'tour-highlight ring-4 ring-[#1F5A43]/20' : ''
+          }`}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Sol Taraf: Net, Güven Veren Kamu Başlığı ve Açıklama */}
             <div className="lg:col-span-7 space-y-6">
@@ -70,7 +76,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
             {/* Sağ Taraf: Temiz Mimari Durak İllüstrasyonu & Güvenli Enerji Kabini */}
             <div className="lg:col-span-5">
-              <div className="bg-[#F6F6F2] border border-[#DDE1DA] rounded-xl p-5 sm:p-6 space-y-4">
+              <div
+                id="tour-step-2-diagram"
+                className={`bg-[#F6F6F2] border border-[#DDE1DA] rounded-xl p-5 sm:p-6 space-y-4 transition-all duration-300 ${
+                  tourStep === 2 ? 'tour-highlight ring-4 ring-[#1F5A43]/20 bg-white' : ''
+                }`}
+              >
                 <div className="flex items-center justify-between border-b border-[#DDE1DA] pb-3">
                   <div className="text-xs font-semibold text-[#182019] uppercase tracking-wide">
                     Tipik Pilot Durak Yerleşimi

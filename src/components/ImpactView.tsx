@@ -24,7 +24,11 @@ const mockDailyEnergyData = [
   { hour: '20:00', solarProduction: 0.0, consumption: 2.5, batterySoc: 76 },
 ];
 
-export const ImpactView: React.FC = () => {
+interface ImpactViewProps {
+  tourStep?: number;
+}
+
+export const ImpactView: React.FC<ImpactViewProps> = ({ tourStep }) => {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 animate-in fade-in duration-200">
       {/* Başlık */}
@@ -41,7 +45,12 @@ export const ImpactView: React.FC = () => {
       </div>
 
       {/* 1. BÖLÜM: BİR DURAĞIN GÜNLÜK ENERJİ DÖNGÜSÜ */}
-      <div className="bg-white border border-[#DDE1DA] rounded-2xl p-6 sm:p-8 space-y-4 shadow-subtle">
+      <div
+        id="tour-step-7-impact"
+        className={`bg-white border border-[#DDE1DA] rounded-2xl p-6 sm:p-8 space-y-4 shadow-subtle transition-all duration-300 ${
+          tourStep === 7 ? 'tour-highlight ring-4 ring-[#1F5A43]/20' : ''
+        }`}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DDE1DA] pb-3">
           <div>
             <h2 className="text-base font-bold text-[#182019]">Bir Durağın Günlük Enerji Döngüsü</h2>

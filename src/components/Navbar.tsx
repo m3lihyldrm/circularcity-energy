@@ -15,9 +15,14 @@ export type NavTab = 'home' | 'map' | 'how-it-works' | 'impact' | 'faq' | 'admin
 interface NavbarProps {
   currentTab: NavTab;
   onNavigate: (tab: NavTab) => void;
+  onStartJuryTour?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  currentTab,
+  onNavigate,
+  onStartJuryTour
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -96,8 +101,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
               })}
             </nav>
 
-            {/* SAĞ: YÖNETİCİ GİRİŞİ BAĞLANTISI */}
-            <div className="hidden md:flex items-center gap-3">
+            {/* SAĞ: JÜRİ SUNUMU & YÖNETİCİ GİRİŞİ BAĞLANTISI */}
+            <div className="hidden md:flex items-center gap-2.5">
+              {onStartJuryTour && (
+                <button
+                  onClick={onStartJuryTour}
+                  className="text-xs px-3 py-1.5 rounded-lg border border-[#1F5A43]/40 bg-[#E5F0EA] text-[#1F5A43] hover:bg-[#1F5A43] hover:text-white transition-all flex items-center gap-1.5 font-medium shadow-2xs"
+                  title="Jüri için 3 dakikalık rehberli proje demosu"
+                >
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>Jüri Sunumu</span>
+                </button>
+              )}
               <button
                 onClick={() => handleItemClick('admin')}
                 className={`text-xs px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 ${
@@ -113,6 +128,16 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
 
             {/* MOBİL MENÜ BUTONU */}
             <div className="flex md:hidden items-center gap-2">
+              {onStartJuryTour && (
+                <button
+                  onClick={onStartJuryTour}
+                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#1F5A43] bg-[#E5F0EA] border border-[#1F5A43]/40 flex items-center gap-1"
+                  title="Jüri Sunumu"
+                >
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>Jüri Sunumu</span>
+                </button>
+              )}
               <button
                 onClick={() => handleItemClick('admin')}
                 className="p-1.5 rounded-lg text-xs text-[#5D665E] border border-[#DDE1DA]"
@@ -134,6 +159,25 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
         {/* MOBİL AÇILIR MENÜ */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-[#DDE1DA] bg-white px-4 pt-2 pb-4 space-y-1 shadow-subtle">
+            {onStartJuryTour && (
+              <div className="pb-2 mb-1 border-b border-[#DDE1DA]">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onStartJuryTour();
+                  }}
+                  className="w-full text-left px-3.5 py-2.5 rounded-lg text-sm bg-[#E5F0EA] text-[#1F5A43] font-semibold flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    <Compass className="w-4 h-4" />
+                    <span>Jüri Sunumu Rehberi</span>
+                  </div>
+                  <span className="text-[10px] uppercase font-mono tracking-wider bg-white/80 px-1.5 py-0.5 rounded text-[#1F5A43] border border-[#1F5A43]/20">
+                    3 Dk Demo
+                  </span>
+                </button>
+              </div>
+            )}
             {navItems.map((item) => {
               const isActive = currentTab === item.id;
               return (

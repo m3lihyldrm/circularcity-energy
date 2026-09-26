@@ -47,9 +47,10 @@ import {
 
 interface AdminPortalProps {
   onBackToPublic?: () => void;
+  tourStep?: number;
 }
 
-export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToPublic }) => {
+export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToPublic, tourStep }) => {
   // Auth state
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('cc_admin_token'));
   const [loginEmail, setLoginEmail] = useState('admin@circularcity.demo');
@@ -207,7 +208,12 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToPublic }) => {
   if (!token) {
     return (
       <div className="min-h-screen bg-[#F6F6F2] text-[#182019] flex flex-col justify-center items-center px-4 py-12 font-sans">
-        <div className="w-full max-w-md bg-white border border-[#DDE1DA] rounded-xl p-8 shadow-subtle space-y-6">
+        <div
+          id="tour-step-6-admin"
+          className={`w-full max-w-md bg-white border border-[#DDE1DA] rounded-xl p-8 shadow-subtle space-y-6 transition-all duration-300 ${
+            tourStep === 6 ? 'tour-highlight ring-4 ring-[#1F5A43]/30' : ''
+          }`}
+        >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-[#E5F0EA] border border-[#1F5A43]/20 flex items-center justify-center text-[#1F5A43]">
               <Lock className="w-5 h-5" />

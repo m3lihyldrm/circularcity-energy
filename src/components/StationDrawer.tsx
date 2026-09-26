@@ -21,6 +21,7 @@ interface StationDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenFeedback: (station: PublicStation) => void;
+  tourStep?: number;
 }
 
 export const getStatusBadge = (status: StationStatus) => {
@@ -56,7 +57,8 @@ export const StationDrawer: React.FC<StationDrawerProps> = ({
   station,
   isOpen,
   onClose,
-  onOpenFeedback
+  onOpenFeedback,
+  tourStep
 }) => {
   // Escape tuşu ile kapanabilme
   useEffect(() => {
@@ -97,8 +99,11 @@ export const StationDrawer: React.FC<StationDrawerProps> = ({
 
       {/* Masaüstünde sağdan, mobilde alttan açılan temiz panel */}
       <aside
+        id="tour-step-4-drawer"
         aria-label="Durak Detayları"
-        className="fixed inset-y-0 right-0 max-w-full w-full sm:max-w-[420px] bg-white shadow-elevated z-50 flex flex-col border-l border-[#DDE1DA] text-[#182019] transition-transform duration-200 ease-out overflow-hidden"
+        className={`fixed inset-y-0 right-0 max-w-full w-full sm:max-w-[420px] bg-white shadow-elevated z-50 flex flex-col border-l border-[#DDE1DA] text-[#182019] transition-transform duration-200 ease-out overflow-hidden ${
+          tourStep === 4 ? 'ring-4 ring-[#1F5A43]/30' : ''
+        }`}
       >
         {/* Üst Başlık Barı */}
         <div className="p-5 border-b border-[#DDE1DA] flex items-start justify-between bg-[#F6F6F2]">
@@ -291,8 +296,11 @@ export const StationDrawer: React.FC<StationDrawerProps> = ({
 
           {/* İkincil Buton: Sorun Bildir */}
           <button
+            id="tour-step-5-feedback"
             onClick={() => onOpenFeedback(station)}
-            className="w-full py-2.5 px-4 bg-white hover:bg-[#EFF0EB] text-[#182019] border border-[#DDE1DA] font-medium text-xs sm:text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
+            className={`w-full py-2.5 px-4 bg-white hover:bg-[#EFF0EB] text-[#182019] border border-[#DDE1DA] font-medium text-xs sm:text-sm rounded-lg transition-colors flex items-center justify-center gap-2 ${
+              tourStep === 5 ? 'tour-highlight ring-4 ring-[#1F5A43]/40 font-bold !bg-[#E5F0EA] !text-[#1F5A43]' : ''
+            }`}
           >
             <MessageSquare className="w-4 h-4 text-[#5D665E]" />
             <span>Sorun bildir</span>

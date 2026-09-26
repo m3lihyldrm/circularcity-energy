@@ -6,6 +6,7 @@ import { HowItWorksView } from './components/HowItWorksView';
 import { ImpactView } from './components/ImpactView';
 import { FaqView } from './components/FaqView';
 import { AdminPortal } from './components/AdminPortal';
+import { JuryTourGuide } from './components/JuryTourGuide';
 import { PublicStation } from './types';
 import { getPublicStations } from './services/api';
 import { fallbackStations } from './services/mockData';
@@ -27,6 +28,10 @@ export const App: React.FC = () => {
 
   const [currentTab, setCurrentTab] = useState<NavTab>(getInitialTab);
   const [stations, setStations] = useState<PublicStation[]>(fallbackStations);
+
+  // Jüri Sunumu (Guided Tour) State
+  const [isTourActive, setIsTourActive] = useState(false);
+  const [tourStep, setTourStep] = useState(1);
 
   useEffect(() => {
     getPublicStations()
@@ -50,23 +55,105 @@ export const App: React.FC = () => {
     window.history.pushState(null, '', tabUrls[tab]);
   };
 
-  // If on admin view, render AdminPortal
-  if (currentTab === 'admin') {
+  // Jüri Sunumu Navigasyonu
+  const goToTourStep = (stepNumber: number) => {
+    setTourStep(stepNumber);
+    if (stepNumber === 1) {
+      handleNavigate('home');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (stepNumber === 2) {
+      handleNavigate('home');
+      setTimeout(() => {
+        const el = document.getElementById('tour-step-2-diagram');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 120);
+    } else if (stepNumber === 3) {
+      handleNavigate('map');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (stepNumber === 4) {
+      handleNavigate('map');
+    } else if (stepNumber === 5) {
+      handleNavigate('map');
+    } else if (stepNumber === 6) {
+      handleNavigate('admin');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (stepNumber === 7) {
+      handleNavigate('impact');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleStartTour = () => {
+    setIsTourActive(true);
+    goToTourStep(1);
+  };
+
+  const handleNextStep = () => {
+    if (tourStep <= 7) {
+      goToTourStep(tourStep + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (tourStep > 1) {
+      goToTourStep(tourStep - 1);
+    }
+  };
+
+  const handleCloseTour = () => {
+    setIsTourActive(false);
+  };
+
+  const handleRestartTour = () => {
+    goToTourStep(1);
+  };
+
+  const handleExploreMap = () => {
+    setIsTourActive(false);
+    handleNavigate('map');
+  };
+
+  // If on admin view without active tour, render standalone AdminPortal
+  if (currentTab === 'admin' && !isTourActive) {
     return <AdminPortal onBackToPublic={() => handleNavigate('home')} />;
   }
 
   return (
     <div className="min-h-screen bg-[#F6F6F2] text-[#182019] flex flex-col font-sans selection:bg-[#1F5A43] selection:text-white">
       {/* Global Navbar */}
-      <Navbar currentTab={currentTab} onNavigate={handleNavigate} />
+      <Navbar
+        currentTab={currentTab}
+        onNavigate={handleNavigate}
+        onStartJuryTour={handleStartTour}
+      />
 
       {/* Main View Area */}
       <main className="flex-1 w-full">
-        {currentTab === 'home' && <HomeView onNavigate={handleNavigate} />}
-        {currentTab === 'map' && <CityMapView stations={stations} />}
+        {currentTab === 'home' && (
+          <HomeView
+            onNavigate={handleNavigate}
+            tourStep={isTourActive ? tourStep : undefined}
+          />
+        )}
+        {currentTab === 'map' && (
+          <CityMapView
+            stations={stations}
+            tourStep={isTourActive ? tourStep : undefined}
+          />
+        )}
         {currentTab === 'how-it-works' && <HowItWorksView />}
-        {currentTab === 'impact' && <ImpactView />}
+        {currentTab === 'impact' && (
+          <ImpactView tourStep={isTourActive ? tourStep : undefined} />
+        )}
         {currentTab === 'faq' && <FaqView />}
+        {currentTab === 'admin' && (
+          <AdminPortal
+            onBackToPublic={() => handleNavigate('home')}
+            tourStep={isTourActive ? tourStep : undefined}
+          />
+        )}
       </main>
 
       {/* SAKİN KURUMSAL FOOTER */}
@@ -145,6 +232,18 @@ export const App: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Jüri Sunumu İnteraktif Rehber Modu */}
+      {isTourActive && (
+        <JuryTourGuide
+          step={tourStep}
+          onNext={handleNextStep}
+          onPrev={handlePrevStep}
+          onClose={handleCloseTour}
+          onRestart={handleRestartTour}
+          onExploreMap={handleExploreMap}
+        />
+      )}
     </div>
   );
 };

@@ -184,4 +184,89 @@ describe('CircularCity Energy Frontend Bileşen ve Arayüz Testleri', () => {
       expect(screen.queryByText(/Zero Leakage/i)).toBeNull();
     });
   });
+
+  // 13. Jüri Sunumu (Guided Tour) Kontrolü
+  describe('13. Jüri Sunumu (Guided Tour) Kontrolü', () => {
+    it('JuryTourGuide 1. adımda problem tanımını doğru başlık ve metinle görüntüler', async () => {
+      const { JuryTourGuide } = await import('../src/components/JuryTourGuide');
+      const handleNext = vi.fn();
+      const handlePrev = vi.fn();
+      const handleClose = vi.fn();
+      const handleRestart = vi.fn();
+      const handleExplore = vi.fn();
+
+      render(
+        <JuryTourGuide
+          step={1}
+          onNext={handleNext}
+          onPrev={handlePrev}
+          onClose={handleClose}
+          onRestart={handleRestart}
+          onExploreMap={handleExplore}
+        />
+      );
+
+      expect(screen.getByText('1/7 · Problem Tanımı')).toBeInTheDocument();
+      expect(
+        screen.getByText('Kent mobilyaları enerji tüketir; bataryalar ise ikinci yaşam potansiyeli taşır.')
+      ).toBeInTheDocument();
+      expect(screen.getByText('Sonraki')).toBeInTheDocument();
+      expect(screen.getByText('Sunumu Kapat')).toBeInTheDocument();
+
+      // Sonraki butonuna tıklandığında handleNext çağrılır
+      fireEvent.click(screen.getByText('Sonraki'));
+      expect(handleNext).toHaveBeenCalledTimes(1);
+    });
+
+    it('JuryTourGuide tamamlandığında (Adım 8) başarı ekranını ve bitiş butonlarını sunar', async () => {
+      const { JuryTourGuide } = await import('../src/components/JuryTourGuide');
+      const handleNext = vi.fn();
+      const handlePrev = vi.fn();
+      const handleClose = vi.fn();
+      const handleRestart = vi.fn();
+      const handleExplore = vi.fn();
+
+      render(
+        <JuryTourGuide
+          step={8}
+          onNext={handleNext}
+          onPrev={handlePrev}
+          onClose={handleClose}
+          onRestart={handleRestart}
+          onExploreMap={handleExplore}
+        />
+      );
+
+      expect(screen.getByText('Döngüsel enerji, erişilebilir kamusal hizmet.')).toBeInTheDocument();
+      expect(screen.getByText('Haritayı İncele')).toBeInTheDocument();
+      expect(screen.getByText('Sunumu Baştan Başlat')).toBeInTheDocument();
+
+      fireEvent.click(screen.getByText('Haritayı İncele'));
+      expect(handleExplore).toHaveBeenCalledTimes(1);
+
+      fireEvent.click(screen.getByText('Sunumu Baştan Başlat'));
+      expect(handleRestart).toHaveBeenCalledTimes(1);
+    });
+
+    it('Navbar üzerinde "Jüri Sunumu" butonu yer alır ve tıklandığında onStartJuryTour tetiklenir', async () => {
+      const { Navbar } = await import('../src/components/Navbar');
+      const handleNavigate = vi.fn();
+      const handleStartTour = vi.fn();
+
+      render(
+        <Navbar
+          currentTab="home"
+          onNavigate={handleNavigate}
+          onStartJuryTour={handleStartTour}
+        />
+      );
+
+      const juryButtons = screen.getAllByText('Jüri Sunumu');
+      expect(juryButtons.length).toBeGreaterThan(0);
+
+      fireEvent.click(juryButtons[0]);
+      expect(handleStartTour).toHaveBeenCalledTimes(1);
+    });
+  });
 });
+

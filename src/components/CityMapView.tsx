@@ -12,12 +12,29 @@ import { Info, CheckCircle2 } from 'lucide-react';
 interface CityMapViewProps {
   stations: PublicStation[];
   onSelectStation?: (station: PublicStation) => void;
+  tourStep?: number;
 }
 
-export const CityMapView: React.FC<CityMapViewProps> = ({ stations: initialStations }) => {
+export const CityMapView: React.FC<CityMapViewProps> = ({
+  stations: initialStations,
+  tourStep
+}) => {
   const [stations, setStations] = useState<PublicStation[]>(initialStations);
   const [selectedStation, setSelectedStation] = useState<PublicStation | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Jüri sunumu adımları için otomatik durak açma / kapatma
+  React.useEffect(() => {
+    if (tourStep === 4 || tourStep === 5) {
+      const campus = stations.find((s) => s.stationId === 'ST-KNY-01') || stations[0];
+      if (campus) {
+        setSelectedStation(campus);
+        setDrawerOpen(true);
+      }
+    } else if (tourStep === 3) {
+      setDrawerOpen(false);
+    }
+  }, [tourStep, stations]);
   const [feedbackStation, setFeedbackStation] = useState<PublicStation | null>(null);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
@@ -133,7 +150,12 @@ export const CityMapView: React.FC<CityMapViewProps> = ({ stations: initialStati
       />
 
       {/* Harita veya Yedek Liste Görünümü */}
-      <div className="flex-1 relative min-h-[500px]">
+      <div
+        id="tour-step-3-map"
+        className={`flex-1 relative min-h-[500px] transition-all duration-300 ${
+          tourStep === 3 ? 'ring-2 ring-[#1F5A43]/40' : ''
+        }`}
+      >
         {viewMode === 'map' ? (
           <MapModule
             stations={filteredStations}
@@ -171,6 +193,7 @@ export const CityMapView: React.FC<CityMapViewProps> = ({ stations: initialStati
           setFeedbackStation(st);
           setFeedbackModalOpen(true);
         }}
+        tourStep={tourStep}
       />
 
       {/* Geri Bildirim Modal */}
