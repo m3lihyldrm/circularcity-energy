@@ -7,7 +7,7 @@ import { OfflineFallbackView } from './OfflineFallbackView';
 import { StationDrawer } from './StationDrawer';
 import { FeedbackModal } from './FeedbackModal';
 import { PrivacyConsentModal } from './PrivacyConsentModal';
-import { AlertCircle, Info, CheckCircle } from 'lucide-react';
+import { Info, CheckCircle2 } from 'lucide-react';
 
 interface CityMapViewProps {
   stations: PublicStation[];
@@ -65,7 +65,6 @@ export const CityMapView: React.FC<CityMapViewProps> = ({ stations: initialStati
         }
       },
       (err) => {
-        // Simüle konum veya bilgilendirme
         const simLat = 37.8720;
         const simLng = 32.4920;
         setUserLocation([simLat, simLng]);
@@ -104,31 +103,19 @@ export const CityMapView: React.FC<CityMapViewProps> = ({ stations: initialStati
   }, [stations, filters]);
 
   return (
-    <div className="flex-1 flex flex-col min-h-0">
-      {/* SAYFANIN ÜSTÜNDEKİ UYARI BARI */}
-      <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 text-xs text-amber-200 flex items-center justify-between flex-wrap gap-2">
-        <div className="flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
-          <span className="font-bold">Pilot Demo Haritası – Simülasyon Verisi</span>
-          <span className="text-slate-400 hidden sm:inline">| Konya merkezli pilot akıllı durak telemetrisi</span>
-        </div>
-        <span className="text-[11px] text-slate-400">
-          Gerçek donanım bağlantısı sonraki aşamada planlanmaktadır.
-        </span>
-      </div>
-
-      {/* Konum İzni Reddedildiğinde Dostça Bilgilendirme */}
+    <div className="flex-1 flex flex-col min-h-0 bg-[#F6F6F2]">
+      {/* Konum İzni Reddedildiğinde Bilgilendirme */}
       {locationNotice && (
-        <div className="bg-slate-800 border-b border-slate-700 px-4 py-2 text-xs text-slate-300 flex items-center justify-between">
+        <div className="bg-white border-b border-[#DDE1DA] px-4 py-2 text-xs text-[#5D665E] flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Info className="w-4 h-4 text-emerald-400" />
+            <Info className="w-4 h-4 text-[#1F5A43]" />
             <span>{locationNotice}</span>
           </div>
           <button
             onClick={() => setLocationNotice(null)}
-            className="text-xs text-slate-400 hover:text-white"
+            className="text-xs text-[#5D665E] hover:text-[#182019]"
           >
-            Tamam
+            ✕
           </button>
         </div>
       )}

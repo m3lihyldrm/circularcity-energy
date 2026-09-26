@@ -7,210 +7,147 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
   BarChart,
-  Bar,
-  Legend
+  Bar
 } from 'recharts';
-import {
-  Leaf,
-  Zap,
-  TrendingUp,
-  MessageSquare,
-  Users,
-  TreePine,
-  RotateCcw,
-  Sparkles,
-  AlertCircle
-} from 'lucide-react';
+import { Leaf, Zap, TreePine, Sun, Info } from 'lucide-react';
 
 const mockDailyEnergyData = [
-  { hour: '06:00', solarProduction: 0.5, consumption: 0.9, cleanEnergy: 60 },
-  { hour: '08:00', solarProduction: 2.2, consumption: 1.8, cleanEnergy: 85 },
-  { hour: '10:00', solarProduction: 4.8, consumption: 2.3, cleanEnergy: 95 },
-  { hour: '12:00', solarProduction: 6.2, consumption: 2.6, cleanEnergy: 100 },
-  { hour: '14:00', solarProduction: 5.9, consumption: 2.8, cleanEnergy: 100 },
-  { hour: '16:00', solarProduction: 4.1, consumption: 3.1, cleanEnergy: 90 },
-  { hour: '18:00', solarProduction: 1.8, consumption: 3.4, cleanEnergy: 75 },
-  { hour: '20:00', solarProduction: 0.0, consumption: 2.5, cleanEnergy: 70 },
+  { hour: '06:00', solarProduction: 0.5, consumption: 0.9, batterySoc: 70 },
+  { hour: '08:00', solarProduction: 2.2, consumption: 1.8, batterySoc: 78 },
+  { hour: '10:00', solarProduction: 4.8, consumption: 2.3, batterySoc: 88 },
+  { hour: '12:00', solarProduction: 6.2, consumption: 2.6, batterySoc: 96 },
+  { hour: '14:00', solarProduction: 5.9, consumption: 2.8, batterySoc: 98 },
+  { hour: '16:00', solarProduction: 4.1, consumption: 3.1, batterySoc: 92 },
+  { hour: '18:00', solarProduction: 1.8, consumption: 3.4, batterySoc: 84 },
+  { hour: '20:00', solarProduction: 0.0, consumption: 2.5, batterySoc: 76 },
 ];
 
 export const ImpactView: React.FC = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 animate-in fade-in duration-300">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 animate-in fade-in duration-200">
       {/* Başlık */}
-      <div className="text-center space-y-3 max-w-2xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
-          Sürdürülebilirlik Raporu
+      <div className="space-y-3 max-w-2xl">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#1F5A43] bg-[#E5F0EA] px-3 py-1 rounded-full border border-[#1F5A43]/20">
+          Sürdürülebilirlik & Etki
         </span>
-        <h1 className="text-3xl sm:text-4xl font-black text-white font-display">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#182019]">
           Şehir ve Çevre Üzerindeki Etkimiz
         </h1>
-        <p className="text-sm text-slate-300">
-          Temiz enerji üretimi, döngüsel batarya ekonomisi ve karbon salım azaltım metrikleri.
+        <p className="text-sm sm:text-base text-[#5D665E] leading-relaxed">
+          Temiz yerel enerji üretimi, döngüsel batarya ekonomisi ve kamu hizmeti sürekliliğinin genel modeli.
         </p>
       </div>
 
-      {/* Şeffaflık Uyarısı */}
-      <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-center justify-between flex-wrap gap-2">
-        <div className="flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 shrink-0 text-amber-400" />
-          <span>Bu sayfada sunulan tüm değerler <strong>demo/simülasyon verisidir; gerçek pilot ölçümü değildir.</strong></span>
-        </div>
-        <span className="font-mono text-[11px] text-amber-200">SİMÜLASYON MODELİ v2.4</span>
-      </div>
-
-      {/* 6 Metrik Kartı */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {/* Metrik 1 */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400">Temiz Enerji Karşılama</span>
-            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
-              <Leaf className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-3xl font-black text-emerald-400">%84</div>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Durak içi aydınlatma, şarj ve havalandırma ihtiyacının güneşten doğrudan karşılanma oranı.
-          </p>
-          <span className="text-[10px] text-slate-500 block pt-1">Demo/simülasyon verisi; gerçek pilot ölçümü değildir.</span>
-        </div>
-
-        {/* Metrik 2 */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400">Tahmini Şebeke Desteği</span>
-            <div className="p-2 rounded-xl bg-teal-500/10 text-teal-400">
-              <Zap className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-3xl font-black text-teal-300">85,7 kWh / gün</div>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Mevzuat ve teknik uygunluk şartları sağlandığında şebekeye beslenebilecek fazla temiz enerji.
-          </p>
-          <span className="text-[10px] text-slate-500 block pt-1">Demo/simülasyon verisi; gerçek pilot ölçümü değildir.</span>
-        </div>
-
-        {/* Metrik 3 */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400">Günlük Hizmet Kullanımı</span>
-            <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400">
-              <Users className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-3xl font-black text-blue-300">~420 Yolcu</div>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            6 pilot durakta USB-C, 220V priz ve kablosuz şarj servislerinden faydalanan günlük vatandaş sayısı.
-          </p>
-          <span className="text-[10px] text-slate-500 block pt-1">Demo/simülasyon verisi; gerçek pilot ölçümü değildir.</span>
-        </div>
-
-        {/* Metrik 4 */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400">Vatandaş Geri Bildirimleri</span>
-            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400">
-              <MessageSquare className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-3xl font-black text-amber-300">14 Kayıt</div>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Temizlik, priz kontrolü ve aydınlatma konularında halktan gelen aktif katılımcı bildirimler.
-          </p>
-          <span className="text-[10px] text-slate-500 block pt-1">Demo/simülasyon verisi; gerçek pilot ölçümü değildir.</span>
-        </div>
-
-        {/* Metrik 5 */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400">Döngüsel Ekonomi Katkısı</span>
-            <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400">
-              <RotateCcw className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-3xl font-black text-indigo-300">%70 Tasarruf</div>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            İkinci yaşam bataryalar sayesinde sıfır batarya üretimine kıyasla hammadde ve imalat tasarrufu.
-          </p>
-          <span className="text-[10px] text-slate-500 block pt-1">Demo/simülasyon verisi; gerçek pilot ölçümü değildir.</span>
-        </div>
-
-        {/* Metrik 6 */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400">Önlenen CO2 Salımı</span>
-            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
-              <TreePine className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-3xl font-black text-emerald-400">1.260 kg CO2e</div>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Şebeke fosil yakıt tüketiminin ikame edilmesiyle aylık bazda önlenen tahmini karbon eşdeğeri.
-          </p>
-          <span className="text-[10px] text-slate-500 block pt-1">Demo/simülasyon verisi; gerçek pilot ölçümü değildir.</span>
-        </div>
-      </div>
-
-      {/* Günlük Üretim / Tüketim Grafiği (Recharts) */}
-      <div className="bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-4">
-        <div className="flex items-center justify-between flex-wrap gap-2">
+      {/* 1. BÖLÜM: BİR DURAĞIN GÜNLÜK ENERJİ DÖNGÜSÜ */}
+      <div className="bg-white border border-[#DDE1DA] rounded-2xl p-6 sm:p-8 space-y-4 shadow-subtle">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DDE1DA] pb-3">
           <div>
-            <h3 className="text-lg font-bold text-white">Güneş Üretimi ve Tüketim Eğrisi (24 Saat)</h3>
-            <p className="text-xs text-slate-400">Saatlik fotovoltaik üretim ve durak içi yük dengesi simülasyonu</p>
+            <h2 className="text-base font-bold text-[#182019]">Bir Durağın Günlük Enerji Döngüsü</h2>
+            <p className="text-xs text-[#5D665E]">Güneş üretimi (kW), yolcu tüketimi (kW) ve batarya doluluk oranı (%)</p>
           </div>
-          <span className="text-[11px] text-slate-400 font-mono bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">
-            Birim: Kilowatt (kW)
+          <span className="text-[11px] font-mono text-[#5D665E] bg-[#F6F6F2] px-2 py-0.5 rounded border border-[#DDE1DA]">
+            24 Saatlik Profil
           </span>
         </div>
 
-        <div className="h-72 w-full pt-4">
+        <div className="h-64 sm:h-72 w-full pt-2">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={mockDailyEnergyData}>
+            <AreaChart data={mockDailyEnergyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
-                <linearGradient id="solarColor" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                <linearGradient id="impactSolar" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#D59B2E" stopOpacity={0.25} />
+                  <stop offset="95%" stopColor="#D59B2E" stopOpacity={0.0} />
                 </linearGradient>
-                <linearGradient id="consumpColor" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                <linearGradient id="impactCons" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#416D86" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#416D86" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
-              <XAxis dataKey="hour" stroke="#94a3b8" fontSize={11} />
-              <YAxis stroke="#94a3b8" fontSize={11} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E8ECE6" />
+              <XAxis dataKey="hour" stroke="#5D665E" fontSize={11} tickLine={false} />
+              <YAxis stroke="#5D665E" fontSize={11} tickLine={false} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#0f172a',
-                  border: '1px solid #334155',
-                  borderRadius: '0.75rem',
-                  color: '#fff',
-                  fontSize: '12px'
+                  backgroundColor: '#FFFFFF',
+                  borderColor: '#DDE1DA',
+                  borderRadius: '8px',
+                  color: '#182019',
+                  fontSize: '12px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
                 }}
               />
-              <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-              <Area
-                type="monotone"
-                dataKey="solarProduction"
-                name="Güneş Üretimi (kW)"
-                stroke="#f59e0b"
-                strokeWidth={2}
-                fillOpacity={1}
-                fill="url(#solarColor)"
-              />
-              <Area
-                type="monotone"
-                dataKey="consumption"
-                name="Durak Tüketimi (kW)"
-                stroke="#10b981"
-                strokeWidth={2}
-                fillOpacity={1}
-                fill="url(#consumpColor)"
-              />
+              <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }} />
+              <Area type="monotone" dataKey="solarProduction" name="Güneş Üretimi (kW)" stroke="#D59B2E" strokeWidth={2} fill="url(#impactSolar)" />
+              <Area type="monotone" dataKey="consumption" name="Tüketim (kW)" stroke="#416D86" strokeWidth={2} fill="url(#impactCons)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
+
+        <div className="text-[11px] text-[#5D665E] pt-2 border-t border-[#DDE1DA] flex items-center justify-between">
+          <span>Demo verisi – fiziksel pilot ölçümü değildir.</span>
+          <span>Tipik gün ışığı modeli</span>
+        </div>
+      </div>
+
+      {/* 2. BÖLÜM: 3 SADE ETKİ GÖSTERGESİ */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="bg-white border border-[#DDE1DA] rounded-xl p-5 shadow-subtle space-y-3">
+          <div className="w-9 h-9 rounded-lg bg-[#E5F0EA] text-[#1F5A43] flex items-center justify-center">
+            <Sun className="w-4 h-4" />
+          </div>
+          <div>
+            <span className="text-xs text-[#5D665E] block">Temiz Enerji Karşılama</span>
+            <div className="text-2xl font-bold text-[#1F5A43] tabular-nums mt-0.5">%84</div>
+          </div>
+          <p className="text-xs text-[#5D665E] leading-relaxed">
+            Güneş panelleri ve batarya depolamasıyla sağlanan ortalama temiz enerji oranı.
+          </p>
+          <div className="text-[10px] text-[#5D665E] pt-2 border-t border-[#DDE1DA]">
+            Simülasyon verisi · 6 pilot durak ortalaması
+          </div>
+        </div>
+
+        <div className="bg-white border border-[#DDE1DA] rounded-xl p-5 shadow-subtle space-y-3">
+          <div className="w-9 h-9 rounded-lg bg-[#EAF2F6] text-[#416D86] flex items-center justify-center">
+            <Zap className="w-4 h-4" />
+          </div>
+          <div>
+            <span className="text-xs text-[#5D665E] block">Kamusal Hizmet Noktası</span>
+            <div className="text-2xl font-bold text-[#182019] tabular-nums mt-0.5">18 Nokta</div>
+          </div>
+          <p className="text-xs text-[#5D665E] leading-relaxed">
+            Halkın kullanımına açık USB-C portları, 220V prizler ve kablosuz şarj üniteleri.
+          </p>
+          <div className="text-[10px] text-[#5D665E] pt-2 border-t border-[#DDE1DA]">
+            Simülasyon verisi · Aktif servis kapasitesi
+          </div>
+        </div>
+
+        <div className="bg-white border border-[#DDE1DA] rounded-xl p-5 shadow-subtle space-y-3">
+          <div className="w-9 h-9 rounded-lg bg-[#E5F0EA] text-[#1F5A43] flex items-center justify-center">
+            <TreePine className="w-4 h-4" />
+          </div>
+          <div>
+            <span className="text-xs text-[#5D665E] block">Tahmini Karbon Göstergesi</span>
+            <div className="text-2xl font-bold text-[#1F5A43] tabular-nums mt-0.5">1.260 kg / yıl</div>
+          </div>
+          <p className="text-xs text-[#5D665E] leading-relaxed">
+            Şebeke çekişi yerine yerel güneş üretimiyle önlenen tahmini yıllık CO₂ eşdeğeri.
+          </p>
+          <div className="text-[10px] text-[#5D665E] pt-2 border-t border-[#DDE1DA]">
+            Simülasyon verisi · Tahmini modelleme
+          </div>
+        </div>
+      </div>
+
+      {/* Şeffaflık Dipnotu */}
+      <div className="p-4 rounded-xl bg-[#EFF0EB] border border-[#DDE1DA] text-xs text-[#5D665E] leading-relaxed flex items-center gap-2">
+        <Info className="w-4 h-4 text-[#1F5A43] shrink-0" />
+        <span>
+          Bu sayfada sunulan tüm etki metrikleri pilot konsept simülasyonudur. Sahadaki gerçek enerji ve karbon tasarruf ölçümleri faz 2 donanım entegrasyonu sonrasında yayınlanacaktır.
+        </span>
       </div>
     </div>
   );

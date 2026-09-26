@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, HelpCircle, Sparkles } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 import { getFaqs } from '../services/api';
 
 interface FaqItem {
@@ -66,53 +66,49 @@ export const FaqView: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-300">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200">
       {/* Başlık */}
-      <div className="text-center space-y-3 max-w-2xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+      <div className="space-y-3 max-w-2xl">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#1F5A43] bg-[#E5F0EA] px-3 py-1 rounded-full border border-[#1F5A43]/20">
           Merak Edilenler
         </span>
-        <h1 className="text-3xl sm:text-4xl font-black text-white font-display">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#182019]">
           Sıkça Sorulan Sorular
         </h1>
-        <p className="text-sm text-slate-300">
-          Döngüsel şehir durakları, ikinci yaşam batarya teknolojisi ve güvenlik standartları hakkında yanıtlar.
+        <p className="text-sm text-[#5D665E] leading-relaxed">
+          Döngüsel şehir durakları, ikinci yaşam batarya yaklaşımı ve güvenlik standartları hakkında yanıtlar.
         </p>
       </div>
 
-      {/* SSS Akordeon Kartları */}
-      <div className="space-y-3">
+      {/* SSS Akordeon Listesi */}
+      <div className="space-y-2.5">
         {faqs.map((faq, idx) => {
           const isOpen = openIndex === idx;
           return (
             <div
               key={faq.id || idx}
-              className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                isOpen
-                  ? 'bg-slate-800/90 border-emerald-500/40 shadow-lg'
-                  : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
-              }`}
+              className="bg-white border border-[#DDE1DA] rounded-xl overflow-hidden shadow-subtle transition-colors"
             >
               <button
                 type="button"
                 onClick={() => toggleAccordion(idx)}
-                className="w-full py-4 px-5 sm:px-6 text-left flex items-center justify-between gap-4 focus:outline-none"
+                className="w-full py-4 px-5 text-left flex items-center justify-between gap-4 focus:outline-none hover:bg-[#F6F6F2] transition-colors"
               >
-                <span className="text-sm sm:text-base font-semibold text-slate-100 flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono flex items-center justify-center shrink-0">
+                <span className="text-sm sm:text-base font-semibold text-[#182019] flex items-center gap-3">
+                  <span className="w-5 h-5 rounded-full bg-[#E5F0EA] text-[#1F5A43] text-xs font-bold flex items-center justify-center shrink-0">
                     {idx + 1}
                   </span>
                   {faq.question}
                 </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-emerald-400 transition-transform duration-300 shrink-0 ${
-                    isOpen ? 'rotate-180' : ''
+                  className={`w-4 h-4 text-[#5D665E] transition-transform duration-200 shrink-0 ${
+                    isOpen ? 'rotate-180 text-[#1F5A43]' : ''
                   }`}
                 />
               </button>
 
               {isOpen && (
-                <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 bg-slate-900/40">
+                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#5D665E] leading-relaxed border-t border-[#DDE1DA] bg-[#F6F6F2]">
                   <p>{faq.answer}</p>
                 </div>
               )}
@@ -121,9 +117,9 @@ export const FaqView: React.FC = () => {
         })}
       </div>
 
-      {/* Şeffaflık Güvence Kartı */}
-      <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-center text-xs text-slate-400 space-y-1">
-        <div className="font-semibold text-emerald-400">Şeffaf Bilgilendirme İlkemiz:</div>
+      {/* Şeffaf Bilgilendirme Notu */}
+      <div className="p-4 rounded-xl bg-white border border-[#DDE1DA] text-xs text-[#5D665E] leading-relaxed space-y-1">
+        <div className="font-semibold text-[#182019]">Şeffaf Bilgilendirme İlkesi:</div>
         <p>Halk API’sinde teknik telemetri paylaşımı tasarım gereği engellenmiştir; bu ayrım otomatik testlerle doğrulanmıştır.</p>
       </div>
     </div>

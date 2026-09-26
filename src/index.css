@@ -3,48 +3,83 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --canvas: #F6F6F2;
+  --surface: #FFFFFF;
+  --surface-muted: #EFF0EB;
+  --text-primary: #182019;
+  --text-secondary: #5D665E;
+  --border: #DDE1DA;
+  --forest: #1F5A43;
+  --forest-dark: #174634;
+  --forest-soft: #E5F0EA;
+  --sun: #D59B2E;
+  --sun-soft: #FBF2DD;
+  --warning: #B7791F;
+  --warning-soft: #FFF7E6;
+  --danger: #B94040;
+  --danger-soft: #FCECEC;
+  --info: #416D86;
+  --info-soft: #EAF2F6;
+}
+
 html, body {
   overflow-x: hidden;
   max-width: 100%;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Harita ve Özel Pin Stilleri */
+/* Tabular Numerals for Statistics */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Harita ve Pin Stilleri */
+.leaflet-container {
+  touch-action: pan-x pan-y;
+  font-family: inherit;
+  background: #E8ECE6;
+}
+
 .custom-station-pin {
   background: transparent;
   border: none;
 }
 
 .custom-station-popup .leaflet-popup-content-wrapper {
-  border-radius: 1rem;
+  border-radius: 12px;
   padding: 0.25rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-  background: #ffffff;
-  color: #0f172a;
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px -2px rgba(24, 32, 25, 0.08), 0 2px 6px -1px rgba(24, 32, 25, 0.04);
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
 }
 
 .custom-station-popup .leaflet-popup-content {
-  margin: 0.5rem;
-  line-height: 1.4;
+  margin: 0.75rem;
+  line-height: 1.45;
 }
 
 .custom-station-popup .leaflet-popup-tip {
-  background: #ffffff;
+  background: var(--surface);
+  border: 1px solid var(--border);
 }
 
-/* Dokunmatik Kullanım İyileştirmeleri */
-.leaflet-container {
-  touch-action: pan-x pan-y;
-  font-family: inherit;
-}
-
-/* Kaydırma Çubuğu */
+/* İnce ve Sakin Kaydırma Çubuğu */
 .scrollbar-thin::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
+  height: 5px;
+  width: 5px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background-color: #475569;
+  background-color: #CBD3C8;
   border-radius: 9999px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background-color: transparent;
 }

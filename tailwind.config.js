@@ -7,39 +7,41 @@ export default {
   theme: {
     extend: {
       colors: {
-        anthracite: {
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617',
+        canvas: 'var(--canvas)',
+        surface: 'var(--surface)',
+        'surface-muted': 'var(--surface-muted)',
+        'text-primary': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        border: 'var(--border)',
+        forest: {
+          DEFAULT: 'var(--forest)',
+          dark: 'var(--forest-dark)',
+          soft: 'var(--forest-soft)',
         },
-        wood: {
-          100: '#fef3c7',
-          500: '#d97706',
-          600: '#b45309',
-          700: '#92400e',
-          800: '#78350f',
+        sun: {
+          DEFAULT: 'var(--sun)',
+          soft: 'var(--sun-soft)',
         },
-        nordicGreen: {
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          500: '#10b981',
-          600: '#059669',
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
+        warning: {
+          DEFAULT: 'var(--warning)',
+          soft: 'var(--warning-soft)',
         },
-        solarYellow: {
-          400: '#facc15',
-          500: '#eab308',
-          600: '#ca8a04',
+        danger: {
+          DEFAULT: 'var(--danger)',
+          soft: 'var(--danger-soft)',
         },
-        aluminum: {
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
+        info: {
+          DEFAULT: 'var(--info)',
+          soft: 'var(--info-soft)',
         }
+      },
+      borderRadius: {
+        'button': '8px',
+        'card': '12px',
+      },
+      boxShadow: {
+        'subtle': '0 1px 3px 0 rgba(24, 32, 25, 0.05), 0 1px 2px -1px rgba(24, 32, 25, 0.03)',
+        'elevated': '0 4px 14px -2px rgba(24, 32, 25, 0.07), 0 2px 6px -1px rgba(24, 32, 25, 0.04)',
       }
     },
   },

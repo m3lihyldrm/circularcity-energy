@@ -9,7 +9,7 @@ import { AdminPortal } from './components/AdminPortal';
 import { PublicStation } from './types';
 import { getPublicStations } from './services/api';
 import { fallbackStations } from './services/mockData';
-import { ShieldCheck, Info } from 'lucide-react';
+import { ShieldCheck, Lock } from 'lucide-react';
 
 export const App: React.FC = () => {
   // Sync tab with pathname or hash
@@ -27,7 +27,6 @@ export const App: React.FC = () => {
 
   const [currentTab, setCurrentTab] = useState<NavTab>(getInitialTab);
   const [stations, setStations] = useState<PublicStation[]>(fallbackStations);
-  const [loadingStations, setLoadingStations] = useState(true);
 
   useEffect(() => {
     getPublicStations()
@@ -35,13 +34,11 @@ export const App: React.FC = () => {
         if (data && data.length > 0) {
           setStations(data);
         }
-      })
-      .finally(() => setLoadingStations(false));
+      });
   }, []);
 
   const handleNavigate = (tab: NavTab) => {
     setCurrentTab(tab);
-    // Update hash/URL smoothly without breaking offline file or server reload
     const tabUrls: Record<NavTab, string> = {
       home: '/',
       map: '/harita',
@@ -59,7 +56,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-[#F6F6F2] text-[#182019] flex flex-col font-sans selection:bg-[#1F5A43] selection:text-white">
       {/* Global Navbar */}
       <Navbar currentTab={currentTab} onNavigate={handleNavigate} />
 
@@ -72,52 +69,60 @@ export const App: React.FC = () => {
         {currentTab === 'faq' && <FaqView />}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-950 border-t border-slate-800 text-slate-400 py-10 px-4 sm:px-6 lg:px-8 mt-16">
+      {/* SAKİN KURUMSAL FOOTER */}
+      <footer className="bg-white border-t border-[#DDE1DA] text-[#5D665E] py-10 px-4 sm:px-6 lg:px-8 mt-16">
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
-                  CC
-                </span>
-                <span className="text-base font-bold text-white">CircularCity Energy</span>
+                <div className="w-7 h-7 rounded-lg bg-[#E5F0EA] border border-[#1F5A43]/20 flex items-center justify-center text-[#1F5A43]">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12" />
+                    <path d="M12 6v6l4 2" />
+                    <path d="M16 2v4h4" />
+                  </svg>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-base font-bold text-[#182019]">CircularCity</span>
+                  <span className="text-sm font-semibold text-[#1F5A43]">Energy</span>
+                </div>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-[#5D665E] leading-relaxed">
                 Konya Akıllı Şehir Ekosistemi için güneş enerjisi ve ikinci yaşam elektrikli araç bataryalarını birleştiren döngüsel enerji durağı platformu.
               </p>
-              <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
+              <div className="flex items-center gap-2 text-xs text-[#1F5A43] font-medium">
                 <ShieldCheck className="w-4 h-4" />
                 <span>Batarya oturma alanında değil; ayrı güvenli enerji kabininde korunur.</span>
               </div>
             </div>
 
             <div className="space-y-2 text-xs">
-              <div className="font-semibold text-white uppercase tracking-wider mb-2">Hızlı Menü</div>
+              <div className="font-semibold text-[#182019] uppercase tracking-wider mb-2">Hızlı Menü</div>
               <div>
-                <button onClick={() => handleNavigate('home')} className="hover:text-emerald-400 transition">Ana Sayfa</button>
+                <button onClick={() => handleNavigate('home')} className="hover:text-[#182019] transition">Ana Sayfa</button>
               </div>
               <div>
-                <button onClick={() => handleNavigate('map')} className="hover:text-emerald-400 transition">Konya Şehir Haritası</button>
+                <button onClick={() => handleNavigate('map')} className="hover:text-[#182019] transition">Konya Şehir Haritası</button>
               </div>
               <div>
-                <button onClick={() => handleNavigate('how-it-works')} className="hover:text-emerald-400 transition">Nasıl Çalışır?</button>
+                <button onClick={() => handleNavigate('how-it-works')} className="hover:text-[#182019] transition">Nasıl Çalışır?</button>
               </div>
               <div>
-                <button onClick={() => handleNavigate('impact')} className="hover:text-emerald-400 transition">Sürdürülebilirlik & Etki</button>
+                <button onClick={() => handleNavigate('impact')} className="hover:text-[#182019] transition">Sürdürülebilirlik & Etki</button>
               </div>
               <div>
-                <button onClick={() => handleNavigate('faq')} className="hover:text-emerald-400 transition">Sıkça Sorulan Sorular</button>
+                <button onClick={() => handleNavigate('faq')} className="hover:text-[#182019] transition">Sıkça Sorulan Sorular</button>
               </div>
               <div>
-                <button onClick={() => handleNavigate('admin')} className="text-amber-400 hover:text-amber-300 transition font-medium">
-                  Yönetici Portalı Girişi →
+                <button onClick={() => handleNavigate('admin')} className="text-[#1F5A43] hover:text-[#174634] transition font-medium flex items-center gap-1">
+                  <Lock className="w-3 h-3" />
+                  <span>Yönetici Portalı Girişi →</span>
                 </button>
               </div>
             </div>
 
-            <div className="space-y-2 text-xs text-slate-400">
-              <div className="font-semibold text-white uppercase tracking-wider mb-2">Yasal & Şeffaflık Notları</div>
+            <div className="space-y-2 text-xs text-[#5D665E]">
+              <div className="font-semibold text-[#182019] uppercase tracking-wider mb-2">Yasal & Şeffaflık Notları</div>
               <p>
                 <strong>Pilot Demo:</strong> Haritada ve panellerde gösterilen tüm veriler simülasyon amaçlıdır. Gerçek donanım bağlantısı sonraki aşamada planlanmaktadır.
               </p>
@@ -130,11 +135,11 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-6 border-t border-slate-900 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
+          <div className="pt-6 border-t border-[#DDE1DA] flex flex-wrap items-center justify-between gap-4 text-xs text-[#5D665E]">
             <div>
-              © 2026 CircularCity Energy • Konya Pilot Konsepti. Tüm hakları saklıdır.
+              © 2026 CircularCity Energy · Konya Pilot Konsepti.
             </div>
-            <div className="text-[11px] text-slate-400 max-w-xl text-right">
+            <div className="text-[11px] max-w-xl text-right">
               Halk API’sinde teknik telemetri paylaşımı tasarım gereği engellenmiştir; bu ayrım otomatik testlerle doğrulanmıştır.
             </div>
           </div>
