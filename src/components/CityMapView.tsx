@@ -1,0 +1,205 @@
+import React, { useState, useMemo } from 'react';
+import { PublicStation, FilterState } from '../types';
+import { getNearbyStations } from '../services/api';
+import { MapModule } from './MapModule';
+import { FilterBar } from './FilterBar';
+import { OfflineFallbackView } from './OfflineFallbackView';
+import { StationDrawer } from './StationDrawer';
+import { FeedbackModal } from './FeedbackModal';
+import { PrivacyConsentModal } from './PrivacyConsentModal';
+import { AlertCircle, Info, CheckCircle } from 'lucide-react';
+
+interface CityMapViewProps {
+  stations: PublicStation[];
+  onSelectStation?: (station: PublicStation) => void;
+}
+
+export const CityMapView: React.FC<CityMapViewProps> = ({ stations: initialStations }) => {
+  const [stations, setStations] = useState<PublicStation[]>(initialStations);
+  const [selectedStation, setSelectedStation] = useState<PublicStation | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [feedbackStation, setFeedbackStation] = useState<PublicStation | null>(null);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+  const [isNearestActive, setIsNearestActive] = useState(false);
+  const [locationNotice, setLocationNotice] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
+
+  const [filters, setFilters] = useState<FilterState>({
+    chargingAvailable: false,
+    wirelessCharging: false,
+    powerOutlet: false,
+    hvacActive: false,
+    accessible: false,
+    onlyActive: false,
+    showNearestOnly: false,
+    searchQuery: '',
+  });
+
+  const handleTriggerNearest = () => {
+    if (userLocation) {
+      setIsNearestActive(!isNearestActive);
+    } else {
+      setPrivacyModalOpen(true);
+    }
+  };
+
+  const handleConsentApproved = () => {
+    setLocationNotice(null);
+    if (!navigator.geolocation) {
+      setLocationNotice('Tarayıcınız konum servisini desteklememektedir.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        setUserLocation([latitude, longitude]);
+        setIsNearestActive(true);
+        const nearby = await getNearbyStations(latitude, longitude);
+        setStations(nearby);
+        if (nearby.length > 0) {
+          setSelectedStation(nearby[0]);
+          setDrawerOpen(true);
+        }
+      },
+      (err) => {
+        // Simüle konum veya bilgilendirme
+        const simLat = 37.8720;
+        const simLng = 32.4920;
+        setUserLocation([simLat, simLng]);
+        setIsNearestActive(true);
+        getNearbyStations(simLat, simLng).then((nearby) => {
+          setStations(nearby);
+          if (nearby.length > 0) {
+            setSelectedStation(nearby[0]);
+            setDrawerOpen(true);
+          }
+        });
+      },
+      { timeout: 8000 }
+    );
+  };
+
+  const handleConsentDenied = () => {
+    setLocationNotice('Konum izni verilmedi. Durakları harita veya listeden seçebilirsiniz.');
+  };
+
+  const filteredStations = useMemo(() => {
+    return stations.filter((station) => {
+      if (filters.searchQuery.trim()) {
+        const q = filters.searchQuery.toLowerCase();
+        const matches = station.name.toLowerCase().includes(q) || station.stationId.toLowerCase().includes(q);
+        if (!matches) return false;
+      }
+      if (filters.onlyActive && station.status !== 'aktif') return false;
+      if (filters.chargingAvailable && station.usbCPorts === 0 && station.powerOutlets === 0) return false;
+      if (filters.wirelessCharging && !station.wirelessCharging) return false;
+      if (filters.powerOutlet && station.powerOutlets === 0) return false;
+      if (filters.hvacActive && !station.hvacStatus.includes('Aktif')) return false;
+      if (filters.accessible && !station.accessibility.includes('Uyumlu')) return false;
+      return true;
+    });
+  }, [stations, filters]);
+
+  return (
+    <div className="flex-1 flex flex-col min-h-0">
+      {/* SAYFANIN ÜSTÜNDEKİ UYARI BARI */}
+      <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 text-xs text-amber-200 flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+          <span className="font-bold">Pilot Demo Haritası – Simülasyon Verisi</span>
+          <span className="text-slate-400 hidden sm:inline">| Konya merkezli pilot akıllı durak telemetrisi</span>
+        </div>
+        <span className="text-[11px] text-slate-400">
+          Gerçek donanım bağlantısı sonraki aşamada planlanmaktadır.
+        </span>
+      </div>
+
+      {/* Konum İzni Reddedildiğinde Dostça Bilgilendirme */}
+      {locationNotice && (
+        <div className="bg-slate-800 border-b border-slate-700 px-4 py-2 text-xs text-slate-300 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Info className="w-4 h-4 text-emerald-400" />
+            <span>{locationNotice}</span>
+          </div>
+          <button
+            onClick={() => setLocationNotice(null)}
+            className="text-xs text-slate-400 hover:text-white"
+          >
+            Tamam
+          </button>
+        </div>
+      )}
+
+      {/* Filtre Barı */}
+      <FilterBar
+        filters={filters}
+        setFilters={setFilters}
+        totalCount={stations.length}
+        filteredCount={filteredStations.length}
+        onTriggerNearest={handleTriggerNearest}
+        isNearestActive={isNearestActive}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+      />
+
+      {/* Harita veya Yedek Liste Görünümü */}
+      <div className="flex-1 relative min-h-[500px]">
+        {viewMode === 'map' ? (
+          <MapModule
+            stations={filteredStations}
+            selectedStation={selectedStation}
+            onSelectStation={(st) => {
+              setSelectedStation(st);
+              setDrawerOpen(true);
+            }}
+            userLocation={userLocation}
+            onSwitchToFallback={() => setViewMode('list')}
+          />
+        ) : (
+          <OfflineFallbackView
+            stations={filteredStations}
+            onSelectStation={(st) => {
+              setSelectedStation(st);
+              setDrawerOpen(true);
+            }}
+            onOpenFeedback={(st) => {
+              setFeedbackStation(st);
+              setFeedbackModalOpen(true);
+            }}
+            onSwitchToMap={() => setViewMode('map')}
+          />
+        )}
+      </div>
+
+      {/* Detay Paneli */}
+      <StationDrawer
+        station={selectedStation}
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        onOpenFeedback={(st) => {
+          setDrawerOpen(false);
+          setFeedbackStation(st);
+          setFeedbackModalOpen(true);
+        }}
+      />
+
+      {/* Geri Bildirim Modal */}
+      <FeedbackModal
+        station={feedbackStation}
+        isOpen={feedbackModalOpen}
+        onClose={() => setFeedbackModalOpen(false)}
+      />
+
+      {/* Konum Onay Modal */}
+      <PrivacyConsentModal
+        isOpen={privacyModalOpen}
+        onClose={() => setPrivacyModalOpen(false)}
+        onConfirm={handleConsentApproved}
+        onDeny={handleConsentDenied}
+      />
+    </div>
+  );
+};
