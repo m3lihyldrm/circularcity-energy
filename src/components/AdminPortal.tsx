@@ -219,7 +219,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToPublic, tourSt
               <Lock className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-[#182019]">CircularCity Energy</h1>
+              <h1 className="text-base font-bold text-[#182019]">BeeHive</h1>
               <p className="text-xs text-[#5D665E]">Yetkili Yönetim & Karar Destek Portalı</p>
             </div>
           </div>
@@ -349,7 +349,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToPublic, tourSt
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-sm sm:text-base font-bold text-[#182019]">CircularCity Energy</h1>
+                <h1 className="text-sm sm:text-base font-bold text-[#182019]">BeeHive</h1>
                 <span className="text-[10px] px-2 py-0.5 rounded bg-[#EFF0EB] text-[#5D665E] border border-[#DDE1DA] font-mono">
                   Yönetim Portalı
                 </span>
@@ -1215,7 +1215,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToPublic, tourSt
 
       {/* Footer */}
       <footer className="bg-white border-t border-[#DDE1DA] px-6 py-4 text-center text-xs text-[#5D665E]">
-        <p>CircularCity Energy · Konya Pilot Şebeke Yönetimi</p>
+        <p>BeeHive · Konya Pilot Şebeke Yönetimi</p>
         <p className="text-[11px] mt-0.5">
           Halk API’sinde teknik telemetri paylaşımı tasarım gereği engellenmiştir; bu ayrım otomatik testlerle doğrulanmıştır.
         </p>

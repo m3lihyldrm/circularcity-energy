@@ -1,9 +1,9 @@
-# CircularCity Energy
-> **İkinci Yaşam Bataryalı ve Güneş Destekli Döngüsel Akıllı Kent Mobilyası Platformu**  
+# BeeHive
+> **Enerjiyi Paylaşan Şehir Altyapısı**  
 > *Konya Pilot Akıllı Şehir Uygulaması*
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Tests](https://img.shields.io/badge/tests-21%20passed-emerald.svg)]()
+[![Tests](https://img.shields.io/badge/tests-24%20passed-emerald.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 [![Konya Pilot](https://img.shields.io/badge/pilot-Konya%2C%20TR-amber.svg)]()
 
@@ -11,7 +11,7 @@
 
 ## 📌 Proje Özeti
 
-**CircularCity Energy**, elektrikli araç (EV) kullanım ömrünü tamamlamış ikinci yaşam lityum-iyon batarya modüllerini, durak çatılarındaki monokristal güneş panelleriyle entegre ederek kendi kendine yeten, döngüsel enerji üreten ve vatandaşa kesintisiz akıllı hizmet sunan bir kent mobilyası platformudur.
+**BeeHive** (BeeHive Energy), elektrikli araç (EV) kullanım ömrünü tamamlamış ikinci yaşam lityum-iyon batarya modüllerini, durak çatılarındaki monokristal güneş panelleriyle entegre ederek kendi kendine yeten, döngüsel enerji üreten ve vatandaşa kesintisiz akıllı hizmet sunan bir kent mobilyası platformudur.
 
 Sistem iki temel arayüzden oluşur:
 1. **Halk Paneli:** Açık, sade, güvenli ve kişisel veri talep etmeyen kamusal arayüz. Şehir haritası üzerinden durak olanaklarını (USB-C, priz, iklimlendirme, erişilebilirlik), anlık temiz enerji oranını ve en yakın durağı gösterir.

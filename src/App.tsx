@@ -169,13 +169,13 @@ export const App: React.FC = () => {
                     <path d="M16 2v4h4" />
                   </svg>
                 </div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-base font-bold text-[#182019]">CircularCity</span>
-                  <span className="text-sm font-semibold text-[#1F5A43]">Energy</span>
+                <div className="flex items-baseline">
+                  <span className="text-base font-bold text-[#182019]">BeeHive</span>
+                  <span className="text-xs font-semibold text-[#1F5A43] ml-1">Energy</span>
                 </div>
               </div>
               <p className="text-xs text-[#5D665E] leading-relaxed">
-                Konya Akıllı Şehir Ekosistemi için güneş enerjisi ve ikinci yaşam elektrikli araç bataryalarını birleştiren döngüsel enerji durağı platformu.
+                Konya Akıllı Şehir Ekosistemi için güneş enerjisi ve ikinci yaşam elektrikli araç bataryalarını birleştiren döngüsel enerji ağı platformu.
               </p>
               <div className="flex items-center gap-2 text-xs text-[#1F5A43] font-medium">
                 <ShieldCheck className="w-4 h-4" />
@@ -224,7 +224,7 @@ export const App: React.FC = () => {
 
           <div className="pt-6 border-t border-[#DDE1DA] flex flex-wrap items-center justify-between gap-4 text-xs text-[#5D665E]">
             <div>
-              © 2026 CircularCity Energy · Konya Pilot Konsepti.
+              © 2026 BeeHive · Konya Pilot Konsepti.
             </div>
             <div className="text-[11px] max-w-xl text-right">
               Halk API’sinde teknik telemetri paylaşımı tasarım gereği engellenmiştir; bu ayrım otomatik testlerle doğrulanmıştır.

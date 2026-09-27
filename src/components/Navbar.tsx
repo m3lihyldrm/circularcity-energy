@@ -71,12 +71,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </svg>
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-base font-bold tracking-tight text-[#182019]">CircularCity</span>
-                  <span className="text-sm font-semibold text-[#1F5A43]">Energy</span>
+                <div className="flex items-baseline">
+                  <span className="text-base font-bold tracking-tight text-[#182019]">BeeHive</span>
+                  <span className="text-xs font-semibold text-[#1F5A43] ml-1">Energy</span>
                 </div>
                 <span className="text-[10px] text-[#5D665E] hidden md:block -mt-0.5">
-                  Döngüsel enerjiyle çalışan kamusal durak altyapısı
+                  Enerjiyi paylaşan şehir altyapısı
                 </span>
               </div>
             </button>

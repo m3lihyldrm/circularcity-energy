@@ -27,7 +27,7 @@ export const TOUR_STEPS: TourStepData[] = [
     tag: '1/7 · Problem Tanımı',
     title: 'Kent mobilyaları enerji tüketir; bataryalar ise ikinci yaşam potansiyeli taşır.',
     description:
-      'CircularCity Energy, teknik değerlendirmeden geçen ikinci yaşam batarya yaklaşımını güneş enerjisiyle birleştirerek kamusal hizmet noktalarına dönüştürür.',
+      'BeeHive, teknik değerlendirmeden geçen ikinci yaşam batarya yaklaşımını güneş enerjisiyle birleştirerek kamusal hizmet noktalarına dönüştürür.',
     targetTab: 'home',
     highlightNotice: 'Hero Alanı & Pilot Konsept'
   },
@@ -260,7 +260,7 @@ export const JuryTourGuide: React.FC<JuryTourGuideProps> = ({
               Döngüsel enerji, erişilebilir kamusal hizmet.
             </h2>
             <p className="text-xs text-[#5D665E] leading-relaxed">
-              CircularCity Energy, üniversite-belediye iş birliğiyle sahaya çıkmaya hazır bir kamusal pilot konsepttir.
+              BeeHive, üniversite-belediye iş birliğiyle sahaya çıkmaya hazır bir kamusal pilot konsepttir.
             </p>
           </div>
 

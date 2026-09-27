@@ -1,4 +1,4 @@
-# CircularCity Energy - Jüri Sunumu & Canlı Demo Senaryosu (3-5 Dakika)
+# BeeHive - Jüri Sunumu & Canlı Demo Senaryosu (3-5 Dakika)
 
 Bu senaryo, Konya Akıllı Şehir jürisine projenin değer önerisini, teknik güvenlik ayrıntılarını ve canlı arayüzlerini 3 ila 5 dakika içinde eksiksiz anlatmak için hazırlanmıştır.
 
@@ -15,7 +15,7 @@ Bu senaryo, Konya Akıllı Şehir jürisine projenin değer önerisini, teknik g
 ---
 
 ### Bölüm 1: Problem & Değer Önerisi (00:00 - 00:45)
-> *"Sayın jüri üyeleri; elektrikli araç dönüşümü hızla yaygınlaşırken, kapasitesi %75-80 bandına düşen milyonlarca batarya modülü erken hurdaya ayrılma riskiyle karşı karşıya. CircularCity Energy olarak biz, bu bataryaları Konya'nın yoğun akıllı duraklarına entegre ederek hem ikinci yaşam sabit enerji depolaması sağlıyor, hem de çatı tipi güneş panelleriyle şebekeden bağımsız çalışan, kesintisiz şarj ve iklimlendirme sunan döngüsel bir kent mobilyası ekosistemi kuruyoruz."*
+> *"Sayın jüri üyeleri; elektrikli araç dönüşümü hızla yaygınlaşırken, kapasitesi %75-80 bandına düşen milyonlarca batarya modülü erken hurdaya ayrılma riskiyle karşı karşıya. BeeHive olarak biz, bu bataryaları Konya'nın yoğun akıllı duraklarına entegre ederek hem ikinci yaşam sabit enerji depolaması sağlıyor, hem de çatı tipi güneş panelleriyle şebekeden bağımsız çalışan, kesintisiz şarj ve iklimlendirme sunan döngüsel bir kent mobilyası ekosistemi kuruyoruz."*
 
 ---
 
@@ -45,6 +45,6 @@ Bu senaryo, Konya Akıllı Şehir jürisine projenin değer önerisini, teknik g
 > *(Terminal: `npm test` çıktısı gösterilir)*
 > 
 > *"Sistemimizin güvenilirliği lafta değil, otomatik testlerle kanıtlanmıştır.*
-> * *Projemizdeki 21 otomatik testin tamamı geçmektedir.*
+> * *Projemizdeki 24 otomatik testin tamamı geçmektedir.*
 > * *Özellikle 'Public API Teknik Veri Sızıntısı Koruması' testimiz; halk uç noktalarından batarya seri numarası, hücre sıcaklığı ve BMS kodlarının kesinlikle sızdırılmadığını garanti altına almaktadır.*
-> * *CircularCity Energy; sıfır atık, akıllı kent ve sürdürülebilir enerji vizyonunu Konya için hayata geçirmeye hazırdır. Dinlediğiniz için teşekkür ederiz."*
+> * *BeeHive; sıfır atık, akıllı kent ve sürdürülebilir enerji vizyonunu Konya için hayata geçirmeye hazırdır. Dinlediğiniz için teşekkür ederiz."*

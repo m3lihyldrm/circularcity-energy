@@ -43,11 +43,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, tourStep }) => {
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#182019] leading-tight">
-                Şehirde enerjiyi daha erişilebilir kılıyoruz.
+                Enerjiyi paylaşan şehir altyapısı.
               </h1>
 
               <p className="text-base sm:text-lg text-[#5D665E] leading-relaxed">
-                Güneş enerjisi ve ikinci yaşam batarya yaklaşımıyla çalışan akıllı duraklar; şarj, konfor ve erişilebilirlik hizmetlerini tek noktada sunar.
+                İkinci yaşam batarya yaklaşımı, güneş enerjisi ve akıllı kent mobilyalarını aynı döngüsel enerji ağı içinde buluşturuyoruz.
               </p>
 
               {/* Birincil ve İkincil CTA */}
@@ -285,7 +285,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, tourStep }) => {
         <div className="bg-[#EFF0EB] border border-[#DDE1DA] rounded-xl p-4 sm:p-5 text-xs text-[#5D665E] leading-relaxed space-y-1">
           <div className="font-semibold text-[#182019]">Pilot Proje ve Doğrulama İlkesi</div>
           <p>
-            Bu arayüz, Konya pilot uygulaması kapsamında simülasyon ve karar destek amaçlı hazırlanmıştır. Gerçek donanım entegrasyonu sonraki aşamada planlanmaktadır. Halk API’sinde teknik telemetri paylaşımı tasarım gereği engellenmiştir; bu ayrım otomatik testlerle doğrulanmıştır.
+            BeeHive, pilot düzeyde geliştirilen döngüsel enerji altyapısı prototipidir. Gösterilen değerler simülasyon verileridir. Fiziksel pilot, teknik test, güvenlik doğrulaması ve mevzuat süreçleri sonraki aşamadadır. Halk API’sinde teknik telemetri paylaşımı tasarım gereği engellenmiştir; bu ayrım otomatik testlerle doğrulanmıştır.
           </p>
         </div>
       </section>

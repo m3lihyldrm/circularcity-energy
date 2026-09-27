@@ -57,7 +57,7 @@ export const HowItWorksView: React.FC = () => {
           Sistem Mimarisi
         </span>
         <h1 className="text-2xl sm:text-3xl font-bold text-[#182019]">
-          CircularCity Energy Nasıl Çalışır?
+          BeeHive Nasıl Çalışır?
         </h1>
         <p className="text-sm sm:text-base text-[#5D665E] leading-relaxed">
           Güneş enerjisini ikinci yaşam bataryalarla buluşturan, güvenli depolama ve kamusal hizmet odaklı akıllı durak döngüsü.

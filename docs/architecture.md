@@ -1,6 +1,6 @@
-# CircularCity Energy - Sistem Mimarisi ve Güvenlik Tasarımı
+# BeeHive - Sistem Mimarisi ve Güvenlik Tasarımı
 
-Bu belge, **CircularCity Energy** projesinin donanım ayrımı, telemetri güvenliği, veri akışları ve yazılım mimarisini detaylandırmaktadır.
+Bu belge, **BeeHive** projesinin donanım ayrımı, telemetri güvenliği, veri akışları ve yazılım mimarisini detaylandırmaktadır.
 
 ---
 
@@ -8,7 +8,7 @@ Bu belge, **CircularCity Energy** projesinin donanım ayrımı, telemetri güven
 
 Geleneksel akıllı durak tasarımlarında batarya modülleri yolcu oturma bölmelerinin altına veya reklam panolarının içine yerleştirilmekte, bu durum yangın ve termal kaçak (thermal runaway) durumlarında ciddi kamusal risk oluşturmaktadır.
 
-**CircularCity Energy Güvenlik Standardı:**
+**BeeHive Güvenlik Standardı:**
 * **Bağımsız Konumlandırma:** Batarya oturma alanında değil; durağın yanında veya arkasında, yolcu bekleme alanından fiziksel olarak izole edilmiş bağımsız bir kabindedir.
 * **Sertifikasyon:** EI60 yangın dayanımı (en az 60 dakika alev ve duman sızdırmazlığı) ve IP65 dış ortam koruma standardı.
 * **İklimlendirme & Havalandırma:** Kabin içi bağımsız zorlamalı egzoz fanı, hidrojen/gaz sensörü ve aerosol tabanlı otomatik yangın söndürme modülü.
